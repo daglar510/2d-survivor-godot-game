@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbycmfl84et8o"]
+
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_3ee3a"]
+[ext_resource type="Script" path="res://player.gd" id="1_58pi1"]
+[ext_resource type="PackedScene" uid="uid://5y1n6ahft5s0" path="res://gun.tscn" id="3_17iya"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rvys7"]
+radius = 32.0
+height = 64.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_br76d"]
+radius = 36.0139
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6g0hw"]
+bg_color = Color(0.383665, 0, 0.0231349, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u07o3"]
+bg_color = Color(0.160784, 1, 0.321569, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_58pi1")
+
+[node name="HappyBoo" parent="." instance=ExtResource("1_3ee3a")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -13)
+shape = SubResource("CapsuleShape2D_rvys7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="gun" parent="." instance=ExtResource("3_17iya")]
+position = Vector2(0, -39)
+
+[node name="hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(-2, -25)
+shape = SubResource("CircleShape2D_br76d")
+debug_color = Color(0.991794, 0, 0.260835, 0.42)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -111.0
+offset_top = -135.0
+offset_right = 110.0
+offset_bottom = -108.0
+theme_override_styles/background = SubResource("StyleBoxFlat_6g0hw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_u07o3")
+value = 100.0
+show_percentage = false
